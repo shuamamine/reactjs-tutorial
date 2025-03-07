@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import BlogList from "./BlogList";
+import useFetch from "./useFetch";
 const Home = () => {
   
       // const handleClick = (e) => {
@@ -15,25 +17,55 @@ const Home = () => {
 //     setAge(30);
 //   }
 
-const [blogs, setBlogs] = useState([
-    { title: 'My new website', body: 'lorem ipsum...', author: 'mario', id: 1 },
-    { title: 'Welcome party!', body: 'lorem ipsum...', author: 'yoshi', id: 2 },
-    { title: 'Web dev top tips', body: 'lorem ipsum...', author: 'mario', id: 3 }
-  ])
+// const [blogs, setBlogs] = useState(null)
+// const [isPending, setIsPending] = useState(true);
+// const [error, setError] = useState(null);
+
+ // const [name, setName] = useState('mario');
+
+  // const handleDelete = (id) => {
+  //   const newBlogs = blogs.filter(blog => blog.id !== id);
+  //   setBlogs(newBlogs);
+  // }
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     fetch('http://localhost:8000/blogs')
+  //     .then(res => {
+  //       if (!res.ok) { // error coming back from server
+  //         throw Error('could not fetch the data for that resource');
+  //       } 
+  //       return res.json();
+  //     })
+  //     .then(data => {
+  //       setIsPending(false);
+  //       setBlogs(data);
+  //       setError(null);
+  //     })
+  //     .catch(err => {
+  //       // auto catches network / connection error
+  //       setIsPending(false);
+  //       setError(err.message);
+  //     })
+  //   }, 1000);
+  // }, [])
+
+ 
+    const { error, isPending, data: blogs } = useFetch('http://localhost:8000/blogs')
+  
     return ( 
     <>
         <div className="Home"> 
-            <h2>Homepage</h2>
             {/* <button onClick={handleClick}>Click me</button>
             <button onClick={(e) => handleClickAgain('Selena', e)}>Click me again</button> */}
             {/* <p>{ name } is { age } years old</p>
             <button onClick={handleClick}>Click me</button> */}
-            {blogs.map(blog => (
-        <div className="blog-preview" key={blog.id} >
-          <h2>{ blog.title }</h2>
-          <p>Written by { blog.author }</p>
-        </div>
-      ))}
+            {/* <BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete}/> */}
+            {/* <BlogList blogs={blogs.filter(blog => blog.author === 'mario')} title="Mario's Blogs" /> */}
+            {/* <button onClick={() => setName('luigi')}>change name</button> */}
+            { error && <div>{ error }</div> }
+      { isPending && <div>Loading...</div> }
+      { blogs && <BlogList blogs={blogs} /> }
         </div>
     </> 
     );
