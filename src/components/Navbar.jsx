@@ -9,8 +9,6 @@ const Navbar = (props) => {
     <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
       <a href="/" class="mr-5 hover:text-gray-900">Home</a>
       <a href="/create" class="mr-5 hover:text-gray-900">New Blog</a>
-      <a class="mr-5 hover:text-gray-900">Third Link</a>
-      <a class="mr-5 hover:text-gray-900">Fourth Link</a>
     </nav>
   </div>
 </header>
